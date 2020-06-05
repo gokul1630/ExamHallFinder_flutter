@@ -20,6 +20,12 @@ void main() => runApp(
     );
 
 class MainPage extends StatelessWidget {
+  Widget getImage() {
+    AssetImage assetImage = AssetImage('images/logo.png');
+    Image imageAsset = Image(image: assetImage);
+    return Center(child: imageAsset);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -34,7 +40,8 @@ class MainPage extends StatelessWidget {
               padding: const EdgeInsets.only(
                   top: 10.0, bottom: 10.0, right: 10.0, left: 10.0),
               child: Text(
-                """       HALL\nALLOTMENT""",
+                """HALL\nALLOTMENT""",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blue,
@@ -61,7 +68,8 @@ class MainPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Text(
-                """HALL NUMBER\n       SERIES""",
+                """HALL NUMBER\nSERIES""",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blue,
@@ -94,6 +102,7 @@ class MainPage extends StatelessWidget {
               ),
               child: Text(
                 "ABOUT",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blue,
@@ -147,11 +156,5 @@ class MainPage extends StatelessWidget {
         SizedBox(height: 20.0),
       ],
     );
-  }
-
-  Widget getImage() {
-    AssetImage assetImage = AssetImage('images/logo.png');
-    Image imageAsset = Image(image: assetImage);
-    return Center(child: imageAsset);
   }
 }

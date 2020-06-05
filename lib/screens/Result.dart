@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_widgets/responsive_widgets.dart';
 
 class Result extends StatelessWidget {
-  String result;
+  var result;
   var regno;
   Result(this.result, this.regno);
   @override
   Widget build(BuildContext context) {
+    ResponsiveWidgets.init(
+      context,
+      height: 1920, // Optional
+      width: 1080, // Optional
+      allowFontScaling: true, // Optional
+    );
     return WillPopScope(
       onWillPop: () {
         _MoveToLastScreen(context);
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -25,35 +33,38 @@ class Result extends StatelessWidget {
           body: ListView(
             children: <Widget>[
               getImage(),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 150.0, right: 10.0, left: 10.0, bottom: 150.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    result == null
-                        ? Center(
-                            child: Text(
-                              "Data Not Found",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Gsans',
-                                  fontSize: 40.0,
-                                  color: Colors.blue),
-                            ),
-                          )
-                        : Center(
-                            child: Text(
-                              "    $regno\n$result",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Gsans',
-                                  fontSize: 40.0,
-                                  color: Colors.blue),
-                            ),
+              SizedBox(
+                height: 150.0,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  result == null
+                      ? Center(
+                          child: Text(
+                            "Data Not Found",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Gsans',
+                                fontSize: 30.0,
+                                color: Colors.blue),
                           ),
-                  ],
-                ),
+                        )
+                      : Center(
+                          child: Text(
+                            "$regno\n$result",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Gsans',
+                                fontSize: 40.0,
+                                color: Colors.blue),
+                          ),
+                        ),
+                ],
+              ),
+              SizedBox(
+                height: 100.0,
               ),
             ],
           ),

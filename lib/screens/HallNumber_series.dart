@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
 class HallNumSeries extends StatelessWidget {
+  Widget getImage() {
+    AssetImage assetImage = AssetImage('images/logo.png');
+    Image imageAsset = Image(image: assetImage);
+    return Center(child: imageAsset);
+  }
+
   @override
   Widget build(BuildContext context) {
     ResponsiveWidgets.init(
@@ -72,11 +78,5 @@ class HallNumSeries extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget getImage() {
-    AssetImage assetImage = AssetImage('images/logo.png');
-    Image imageAsset = Image(image: assetImage);
-    return Center(child: imageAsset);
   }
 }

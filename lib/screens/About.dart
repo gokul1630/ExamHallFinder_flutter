@@ -10,6 +10,11 @@ class About extends StatelessWidget {
       width: 1080, // Optional
       allowFontScaling: true, // Optional
     );
+    Widget getImage() {
+      AssetImage assetImage = AssetImage('images/logo.png');
+      Image imageAsset = Image(image: assetImage);
+      return Center(child: imageAsset);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -58,11 +63,5 @@ class About extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget getImage() {
-    AssetImage assetImage = AssetImage('images/logo.png');
-    Image imageAsset = Image(image: assetImage);
-    return Center(child: imageAsset);
   }
 }
