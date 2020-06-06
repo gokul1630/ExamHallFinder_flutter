@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
 
+// ignore: must_be_immutable
 class Result extends StatelessWidget {
-  var result;
-  var regno;
-  Result(this.result, this.regno);
+  var location;
+  var registerNumber;
+
+  Result(this.location, this.registerNumber);
   @override
   Widget build(BuildContext context) {
     ResponsiveWidgets.init(
@@ -15,6 +17,7 @@ class Result extends StatelessWidget {
       allowFontScaling: true, // Optional
     );
     return WillPopScope(
+      // ignore: missing_return
       onWillPop: () {
         _moveToLastScreen(context);
       },
@@ -39,7 +42,7 @@ class Result extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  result == null
+                  location == null
                       ? Center(
                           child: Text(
                             "Data Not Found",
@@ -52,7 +55,7 @@ class Result extends StatelessWidget {
                         )
                       : Center(
                           child: Text(
-                            "$regno\n$result",
+                            "$registerNumber\n$location",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,

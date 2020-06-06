@@ -13,19 +13,14 @@ class HallAllotment extends StatefulWidget {
 }
 
 class _HallAllotmentState extends State<HallAllotment> {
-  final TIMEOUT = const Duration(seconds: 5);
+  var hallLocation;
 
-  var result;
-
-  int regno;
+  int registerNumber;
 
   String url;
 
-  bool I = false;
-  bool II = false;
-  bool III = false;
-  bool IV = false;
-  bool ARREAR = false;
+  // ignore: non_constant_identifier_names
+  bool I, II, III, IV, ARREAR = false;
 
   TextEditingController textfield = TextEditingController();
   var _formkey = GlobalKey<FormState>();
@@ -51,26 +46,25 @@ class _HallAllotmentState extends State<HallAllotment> {
     for (var val in finalMap.values) {
       for (var vars in val) {
         if (IV == false) {
-          if (vars['RegisterNumber'] == regno) {
+          if (vars['RegisterNumber'] == registerNumber) {
             setState(() {
-              result = vars['HallLocation'];
-            
+              hallLocation = vars['HallLocation'];
             });
             break;
           } else {
             setState(() {
-              result = "Data not found";
+              hallLocation = "Data not found";
             });
           }
         } else {
-          if (vars['id'] == regno) {
+          if (vars['id'] == registerNumber) {
             setState(() {
-              result = vars['name'];
+              hallLocation = vars['name'];
             });
             break;
           } else {
             setState(() {
-              result = "Data not found";
+              hallLocation = "Data not found";
             });
           }
         }
@@ -157,7 +151,7 @@ class _HallAllotmentState extends State<HallAllotment> {
   }
 
   void resetString() {
-    result = null;
+    hallLocation = null;
   }
 
   @override
@@ -194,13 +188,12 @@ class _HallAllotmentState extends State<HallAllotment> {
                   textAlign: TextAlign.center,
                   controller: textfield,
                   validator: (String value) {
-                    if (value.isEmpty) {
-                      return "Please Enter Register Number";
-                    }
+                    if (value.isEmpty) {}
+                    return "Please Enter Register Number";
                   },
                   onChanged: (value) {
                     setState(() {
-                      regno = int.parse(value);
+                      registerNumber = int.parse(value);
                     });
                   },
                   decoration: InputDecoration(
@@ -251,7 +244,8 @@ class _HallAllotmentState extends State<HallAllotment> {
                                     () => Navigator.push(
                                       context,
                                       MaterialPageRoute(builder: (context) {
-                                        return Result(result, regno);
+                                        return Result(
+                                            hallLocation, registerNumber);
                                       }),
                                     ),
                                   ),
