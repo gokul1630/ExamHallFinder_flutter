@@ -16,7 +16,7 @@ class Result extends StatelessWidget {
     );
     return WillPopScope(
       onWillPop: () {
-        _MoveToLastScreen(context);
+        _moveToLastScreen(context);
       },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -25,7 +25,7 @@ class Result extends StatelessWidget {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                _MoveToLastScreen(context);
+                _moveToLastScreen(context);
               },
             ),
             title: Text("SONA KNOW YOUR HALL"),
@@ -73,7 +73,7 @@ class Result extends StatelessWidget {
     );
   }
 
-  void _MoveToLastScreen(BuildContext context) {
+  void _moveToLastScreen(BuildContext context) {
     Navigator.pop(context);
   }
 

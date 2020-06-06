@@ -54,6 +54,7 @@ class _HallAllotmentState extends State<HallAllotment> {
           if (vars['RegisterNumber'] == regno) {
             setState(() {
               result = vars['HallLocation'];
+            
             });
             break;
           } else {
