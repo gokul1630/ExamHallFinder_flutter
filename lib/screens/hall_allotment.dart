@@ -19,8 +19,11 @@ class _HallAllotmentState extends State<HallAllotment> {
 
   String url;
 
-  // ignore: non_constant_identifier_names
-  bool I, II, III, IV, ARREAR = false;
+  bool I = false;
+  bool II = false;
+  bool III = false;
+  bool IV = false;
+  bool ARREAR = false;
 
   TextEditingController textfield = TextEditingController();
   var _formkey = GlobalKey<FormState>();
@@ -187,9 +190,11 @@ class _HallAllotmentState extends State<HallAllotment> {
                 child: TextFormField(
                   textAlign: TextAlign.center,
                   controller: textfield,
+                  // ignore: missing_return
                   validator: (String value) {
-                    if (value.isEmpty) {}
-                    return "Please Enter Register Number";
+                    if (value.isEmpty) {
+                      return "Please Enter Register Number";
+                    }
                   },
                   onChanged: (value) {
                     setState(() {
