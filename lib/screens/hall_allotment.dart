@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,11 @@ class _HallAllotmentState extends State<HallAllotment> {
 
   String url;
 
-  bool I = false;
-  bool II = false;
-  bool III = false;
-  bool IV = false;
-  bool ARREAR = false;
+  bool year_1 = false;
+  bool year_2 = false;
+  bool year_3 = false;
+  bool year_4 = false;
+  bool arrears = false;
 
   TextEditingController textfield = TextEditingController();
   var _formkey = GlobalKey<FormState>();
@@ -48,7 +49,7 @@ class _HallAllotmentState extends State<HallAllotment> {
 
     for (var val in finalMap.values) {
       for (var vars in val) {
-        if (IV == false) {
+        if (year_4 == false) {
           if (vars['RegisterNumber'] == registerNumber) {
             setState(() {
               hallLocation = vars['HallLocation'];
@@ -85,61 +86,62 @@ class _HallAllotmentState extends State<HallAllotment> {
             setState(() {
               switch (title) {
                 case 'I':
-                  if (I == false) {
-                    I = value;
+                  if (year_1 == false) {
+                    year_1 = value;
                     url =
                         'https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1x7_PkjeLxB3ZFUDw7naQ3tTx3gx6aYpNpOQAWH7zn74&sheet=Sheet1';
-                    II = false;
-                    III = false;
-                    IV = false;
-                    ARREAR = false;
+                    year_2 = false;
+                    year_3 = false;
+                    year_4 = false;
+                    arrears = false;
                   }
                   break;
                 case 'II':
-                  if (II == false) {
-                    II = value;
+                  if (year_2 == false) {
+                    year_2 = value;
                     url =
                         'https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=18S6qFb19RUaze6k018Bsh2_qI9I5YSv_Rf4g2uoxRn4&sheet=Sheet1';
-                    I = false;
-                    III = false;
-                    IV = false;
-                    ARREAR = false;
+                    year_1 = false;
+                    year_3 = false;
+                    year_4 = false;
+                    arrears = false;
                   }
                   break;
                 case 'III':
-                  if (III == false) {
-                    III = value;
+                  if (year_3 == false) {
+                    year_3 = value;
                     url =
                         'https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1Pz00F6sBUzIvxIKNClFcjNxz4JN2lE8Fg0ooL7y_Idc&sheet=Sheet1';
-                    I = false;
-                    II = false;
-                    IV = false;
-                    ARREAR = false;
+                    year_1 = false;
+                    year_2 = false;
+                    year_4 = false;
+                    arrears = false;
                   }
                   break;
                 case 'IV':
-                  if (IV == false) {
-                    IV = value;
+                  if (year_4 == false) {
+                    year_4 = value;
                     url =
                         'https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1FJlLcWbrN1smoW4uS-u9GfOEqpuwCDFatKBbif5UPlc&sheet=Sheet1';
-                    I = false;
-                    II = false;
-                    III = false;
-                    ARREAR = false;
+                    year_1 = false;
+                    year_2 = false;
+                    year_3 = false;
+                    arrears = false;
                   }
                   break;
                 case 'ARREAR':
-                  if (ARREAR == false) {
-                    ARREAR = value;
+                  if (arrears == false) {
+                    arrears = value;
                     url =
                         'https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=10LDWcToxMercPRC6vQ1QXD3ocBUZjDeFfYwJlfNtlbg&sheet=Sheet1';
-                    I = false;
-                    II = false;
-                    III = false;
-                    IV = false;
+                    year_1 = false;
+                    year_2 = false;
+                    year_3 = false;
+                    year_4 = false;
                   }
                   break;
               }
+              print(url);
             });
           },
         ),
@@ -155,6 +157,18 @@ class _HallAllotmentState extends State<HallAllotment> {
 
   void resetString() {
     hallLocation = null;
+  }
+
+  void _snackBar(BuildContext context) {
+    Flushbar(
+            margin: EdgeInsets.all(10.0),
+            message: 'Please Select Year',
+            duration: Duration(seconds: 3),
+            icon: Icon(Icons.info_outline, color: Colors.white),
+            backgroundColor: Colors.black,
+            maxWidth: 200,
+            borderRadius: 10.0)
+        .show(context);
   }
 
   @override
@@ -213,11 +227,11 @@ class _HallAllotmentState extends State<HallAllotment> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  checkBox(I, "I"),
-                  checkBox(II, "II"),
-                  checkBox(III, "III"),
-                  checkBox(IV, "IV"),
-                  checkBox(ARREAR, "ARREAR"),
+                  checkBox(year_1, "I"),
+                  checkBox(year_2, "II"),
+                  checkBox(year_3, "III"),
+                  checkBox(year_4, "IV"),
+                  checkBox(arrears, "ARREAR"),
                 ],
               ),
               SizedBox(height: 20.0),
@@ -243,18 +257,22 @@ class _HallAllotmentState extends State<HallAllotment> {
                           if (_formkey.currentState.validate()) {
                             resetString();
                             loadurl();
-                            progressDialog.show();
-                            Future.delayed(Duration(seconds: 4)).then(
-                              (value) => progressDialog.hide().whenComplete(
-                                    () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) {
-                                        return Result(
-                                            hallLocation, registerNumber);
-                                      }),
+                            if (url == null) {
+                              _snackBar(context);
+                            } else {
+                              progressDialog.show();
+                              Future.delayed(Duration(seconds: 4)).then(
+                                (value) => progressDialog.hide().whenComplete(
+                                      () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return Result(
+                                              hallLocation, registerNumber);
+                                        }),
+                                      ),
                                     ),
-                                  ),
-                            );
+                              );
+                            }
                           }
                         });
                       },
