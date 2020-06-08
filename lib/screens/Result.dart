@@ -45,7 +45,8 @@ class Result extends StatelessWidget {
                   location == null
                       ? Center(
                           child: Text(
-                            "Data Not Found",
+                            "Data Not Found\nPlease Try Again",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Gsans',
@@ -53,16 +54,14 @@ class Result extends StatelessWidget {
                                 color: Colors.blue),
                           ),
                         )
-                      : Center(
-                          child: Text(
-                            "$registerNumber\n$location",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Gsans',
-                                fontSize: 40.0,
-                                color: Colors.blue),
-                          ),
+                      : Text(
+                          "$registerNumber\n$location",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Gsans',
+                              fontSize: 40.0,
+                              color: Colors.blue),
                         ),
                 ],
               ),

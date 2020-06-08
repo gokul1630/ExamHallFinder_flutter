@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
           child: RaisedButton(
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 10.0, right: 10.0, left: 10.0),
+                  top: 10.0, bottom: 10.0, right: 14.0, left: 14.0),
               child: Text(
                 """HALL\nALLOTMENT""",
                 textAlign: TextAlign.center,
@@ -66,7 +66,8 @@ class MainPage extends StatelessWidget {
         Center(
           child: RaisedButton(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              padding: const EdgeInsets.only(
+                  top: 10.0, bottom: 10.0, left: 5.0, right: 5.0),
               child: Text(
                 """HALL NUMBER\nSERIES""",
                 textAlign: TextAlign.center,
@@ -97,7 +98,7 @@ class MainPage extends StatelessWidget {
               padding: const EdgeInsets.only(
                 top: 20.0,
                 bottom: 20.0,
-                left: 37.0,
+                left: 40.0,
                 right: 36.0,
               ),
               child: Text(

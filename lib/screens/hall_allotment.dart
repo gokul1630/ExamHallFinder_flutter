@@ -66,10 +66,6 @@ class _HallAllotmentState extends State<HallAllotment> {
               hallLocation = vars['name'];
             });
             break;
-          } else {
-            setState(() {
-              hallLocation = "Data not found";
-            });
           }
         }
       }
