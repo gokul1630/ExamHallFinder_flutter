@@ -1,4 +1,4 @@
-package com.gokul.sonaknowyourexamhall
+package com.sona.hall
 
 import io.flutter.embedding.android.FlutterActivity
 
