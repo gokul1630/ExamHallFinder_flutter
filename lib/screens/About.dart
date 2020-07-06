@@ -58,6 +58,7 @@ class About extends StatelessWidget {
             child: Text(
               "Powered by Department of IT & EEE",
               style: TextStyle(fontSize: 15.0),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
