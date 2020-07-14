@@ -1,12 +1,17 @@
 import 'dart:convert';
+
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:sona_know_your_hall/screens/Result.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
+import 'package:sona_know_your_hall/screens/Result.dart';
+
+const blue = Colors.blue;
+const white = Colors.white;
+const black = Colors.black;
 
 class HallAllotment extends StatefulWidget {
   @override
@@ -15,11 +20,9 @@ class HallAllotment extends StatefulWidget {
 
 class _HallAllotmentState extends State<HallAllotment> {
   var hallLocation;
-
+  bool showSpinner = false;
   int registerNumber;
-
   String url;
-
   bool year_1 = false;
   bool year_2 = false;
   bool year_3 = false;
@@ -28,11 +31,7 @@ class _HallAllotmentState extends State<HallAllotment> {
 
   TextEditingController textfield = TextEditingController();
   var _formkey = GlobalKey<FormState>();
-
   Map finalMap;
-
-  ProgressDialog progressDialog;
-
   Future<void> loadurl() async {
     final response =
         await http.get(url, headers: {"Accept": "aplication/json"});
@@ -160,8 +159,8 @@ class _HallAllotmentState extends State<HallAllotment> {
             margin: EdgeInsets.all(10.0),
             message: 'Please Select Year',
             duration: Duration(seconds: 3),
-            icon: Icon(Icons.info_outline, color: Colors.white),
-            backgroundColor: Colors.black,
+            icon: Icon(Icons.info_outline, color: white),
+            backgroundColor: black,
             maxWidth: 200,
             borderRadius: 10.0)
         .show(context);
@@ -175,108 +174,107 @@ class _HallAllotmentState extends State<HallAllotment> {
       width: 1080, // Optional
       allowFontScaling: true, // Optional
     );
-    progressDialog = ProgressDialog(context);
-    progressDialog.style(
-      message: 'Hey Please Wait...\ni am checking your hall',
-      textAlign: TextAlign.center,
-      borderRadius: 20.0,
-      padding: EdgeInsets.all(10.0),
-    );
-    return Form(
-      key: _formkey,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("SONA KNOW YOUR EXAM HALL"),
-        ),
-        body: Center(
-          child: ListView(
-            children: <Widget>[
-              getImage(),
-              SizedBox(
-                height: 20.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 60.0, left: 60.0),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: textfield,
-                  // ignore: missing_return
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return "Please Enter Register Number";
-                    }
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      registerNumber = int.parse(value);
-                    });
-                  },
-                  decoration: InputDecoration(
-                      labelText: 'Enter Register Number',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      )),
-                  keyboardType: TextInputType.numberWithOptions(signed: false),
+
+    return ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      dismissible: false,
+      child: Form(
+        key: _formkey,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("SONA KNOW YOUR EXAM HALL"),
+          ),
+          body: Center(
+            child: ListView(
+              children: <Widget>[
+                getImage(),
+                SizedBox(
+                  height: 20.0,
                 ),
-              ),
-              SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  checkBox(year_1, "I"),
-                  checkBox(year_2, "II"),
-                  checkBox(year_3, "III"),
-                  checkBox(year_4, "IV"),
-                  checkBox(arrears, "ARREAR"),
-                ],
-              ),
-              SizedBox(height: 20.0),
-              Container(
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(right: 60.0, left: 60.0),
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: textfield,
+                    // ignore: missing_return
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return "Please Enter Register Number";
+                      }
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        registerNumber = int.parse(value);
+                      });
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Enter Register Number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        )),
+                    keyboardType:
+                        TextInputType.numberWithOptions(signed: false),
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text(
-                        "CHECK",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.blue, fontSize: 20.0),
-                      ),
-                      color: Colors.white,
-                      highlightColor: Colors.blueAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue),
-                      ),
-                      elevation: 10.0,
-                      onPressed: () {
-                        setState(() {
-                          if (_formkey.currentState.validate()) {
-                            resetString();
-                            loadurl();
-                            if (url == null) {
-                              _snackBar(context);
-                            } else {
-                              progressDialog.show();
-                              Future.delayed(Duration(seconds: 4)).then(
-                                (value) => progressDialog.hide().whenComplete(
-                                      () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) {
-                                          return Result(
-                                              hallLocation, registerNumber);
-                                        }),
-                                      ),
-                                    ),
-                              );
-                            }
-                          }
-                        });
-                      },
-                    ),
+                    checkBox(year_1, "I"),
+                    checkBox(year_2, "II"),
+                    checkBox(year_3, "III"),
+                    checkBox(year_4, "IV"),
+                    checkBox(arrears, "ARREAR"),
                   ],
                 ),
-              ),
-            ],
+                SizedBox(height: 20.0),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text(
+                          "CHECK",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: blue, fontSize: 20.0),
+                        ),
+                        color: white,
+                        highlightColor: blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: blue),
+                        ),
+                        elevation: 10.0,
+                        onPressed: () {
+                          setState(() {
+                            if (_formkey.currentState.validate()) {
+                              resetString();
+                              loadurl();
+                              if (url == null) {
+                                _snackBar(context);
+                              } else {
+                                showSpinner = true;
+                                Future.delayed(Duration(seconds: 5))
+                                    .then((value) {
+                                  showSpinner = false;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return Result(
+                                          hallLocation, registerNumber);
+                                    }),
+                                  );
+                                });
+                              }
+                            }
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

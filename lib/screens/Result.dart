@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_widgets/responsive_widgets.dart';
+import 'package:sona_know_your_hall/screens/hall_allotment.dart';
 
 // ignore: must_be_immutable
 class Result extends StatelessWidget {
@@ -51,7 +52,7 @@ class Result extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Gsans',
                                 fontSize: 30.0,
-                                color: Colors.blue),
+                                color: blue),
                           ),
                         )
                       : Text(
@@ -61,7 +62,7 @@ class Result extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Gsans',
                               fontSize: 40.0,
-                              color: Colors.blue),
+                              color: blue),
                         ),
                 ],
               ),
