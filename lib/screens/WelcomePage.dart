@@ -65,15 +65,19 @@ class NavigationButton extends StatelessWidget {
   NavigationButton(this.text, [this.navigator]);
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height * 0.2;
+    var width = MediaQuery.of(context).size.width;
+    var queryData = MediaQuery.of(context);
+    print(height);
     return ButtonTheme(
-      minWidth: 175,
-      height: 70,
+      minWidth: width * 0.45,
+      height: width * 0.20,
       child: RaisedButton(
         child: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 20.0,
+              fontSize: width * 0.05, //20.0,
               color: blue,
               fontFamily: 'Gsans',
               fontWeight: FontWeight.bold),
